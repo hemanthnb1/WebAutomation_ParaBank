@@ -4,13 +4,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class LoginPage {
+public class LoginPage extends BasePage{
 
     WebDriver driver;
     public LoginPage(WebDriver driver){
+        super(driver);
         this.driver=driver;
     }
      public void Login(String Username, String Password) throws InterruptedException {
+
         WebElement username=driver.findElement(By.id("username"));
         username.sendKeys(Username);
         WebElement password=driver.findElement(By.id("password"));

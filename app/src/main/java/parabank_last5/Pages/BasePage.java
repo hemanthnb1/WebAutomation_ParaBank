@@ -5,8 +5,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public abstract class BasePage {
     WebDriver driver;
-    BasePage(WebDriver driver){
+PageWaits pagewaits;
+BasePage(WebDriver driver){
         this.driver=driver;
+        this.pagewaits=new PageWaits(driver);
 
     }
 

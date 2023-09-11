@@ -9,11 +9,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import javax.swing.*;
 import java.time.Duration;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class ChangePasswordPage {
+public class ChangePasswordPage extends BasePage{
     WebDriver driver;
 
     public ChangePasswordPage(WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 
@@ -26,12 +29,32 @@ public class ChangePasswordPage {
     }
 
     public  void changePassword(String oldPassword, String newPassword){
-        WebDriverWait webDriverWait = new WebDriverWait(driver,Duration.ofMillis(10000));
-        driver.findElement(By.id("oldPassword-field")).sendKeys(oldPassword);
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("oldPassword-field")));
+
+        WebElement inputOldpassword=driver.findElement(By.id("oldPassword-field"));
+        pagewaits.waitForElementToBePresent(inputOldpassword);
+        inputOldpassword.sendKeys(oldPassword);
         driver.findElement(By.id("newPassword-field")).sendKeys(newPassword);
         driver.findElement(By.id("confirmPassword-field")).sendKeys(newPassword);
         driver.findElement(By.id("save-button")).click();
 
     }
+
+    public String loginWithModifiedPassword(String userName, String password) throws InterruptedException {
+        WebElement logout=driver.findElement(By.partialLinkText("Logout"));
+        pagewaits.waitForElementToBeVisible(logout);
+        logout.click();
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.Login(userName,password);
+        String temp=driver.findElement(By.cssSelector("#content > div:nth-child(2) > div > h4")).getText();
+        Pattern pattern = Pattern.compile("\\((.*?)\\)");
+        Matcher matcher = pattern.matcher(temp);
+        String substring=null;
+        if (matcher.find()) {
+             substring = matcher.group(1);
+            System.out.println(substring); // Output: davyjon
+        }
+        return substring;
+}
+
+
 }
