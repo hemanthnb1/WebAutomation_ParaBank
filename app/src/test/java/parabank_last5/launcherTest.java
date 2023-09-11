@@ -1,19 +1,11 @@
 package parabank_last5;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import parabank_last5.Driver.DriverCreator;
 import parabank_last5.Pages.*;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class launcherTest {
 
@@ -60,7 +52,18 @@ public class launcherTest {
         Assert.assertEquals(expectedusername,"johnsoncooper","Username doesn't match");
     }
 
-    @Test(groups = {"sanity1"})
+    @Test
+    void loginToAddedUserWithFalseCredentials() throws InterruptedException {
+        String username="johnsoncooper", password="Johnson@12c";
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.Login(username,password);
+        String message=loginPage.loginError();
+        Assert.assertEquals(message,"Invalid username/password. Please try again.");
+    }
+
+
+
+    @Test(groups = {"sanity"})
     void startVisitWorkFlowTest() throws InterruptedException {
         String username = "admin", Password = "Admin123";
         String patientName="Hemanth";
@@ -97,11 +100,18 @@ public class launcherTest {
         Thread.sleep(3000);
 
         String newPassword="Hemanth@321";
-        String username=changePasswordPage.loginWithModifiedPassword(currentUsername,newPassword);
+        String username=changePasswordPage.loginWithModifiedCredentials(currentUsername,newPassword);
         Assert.assertEquals(username,currentUsername,"Changing password failed");
     }
 
-
+    @Test
+    void loginAfterModifyingPasswordWithFalseCredentials() throws InterruptedException {
+        String username="hemanthnb3", password="Hemanth@111";
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.Login(username,password);
+        String message=loginPage.loginError();
+        Assert.assertEquals(message,"Invalid username/password. Please try again.");
+    }
 
     @Test(groups = {"sanity"})
     void editInformationTest() throws InterruptedException {

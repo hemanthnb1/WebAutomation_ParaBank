@@ -39,7 +39,7 @@ public class CheckInPatient extends BasePage {
         patientRecord.click();
         driver.findElement(By.partialLinkText("End Visit")).click();
         driver.findElement(By.cssSelector("#end-visit-dialog > div.dialog-content > button.confirm.right")).click();
-        Thread.sleep(1000);
+//        Thread.sleep(3000);
         WebElement startVisitButton=driver.findElement(By.partialLinkText("Start Visit"));
         pagewaits.waitForElementToBeVisible(startVisitButton);
         boolean val=startVisitButton.isDisplayed();

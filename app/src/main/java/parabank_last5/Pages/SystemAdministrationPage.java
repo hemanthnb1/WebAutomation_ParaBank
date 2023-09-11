@@ -60,7 +60,7 @@ public class SystemAdministrationPage extends BasePage {
         for (WebElement row : rows) {
             List<WebElement>cells=row.findElements(By.tagName("td"));
             for (WebElement cell : cells) {
-                if(cell.getText().equals("LandCruiser")){
+                if(cell.getText().equals(searchKey)){
 //                    driver.findElement(By.xpath("/html/body/div[1]/div[3]/div/table/tbody/tr/td[5]/i")).click();
 //                    System.out.println(cell.getText());
                     actualUserName=cell.getText();

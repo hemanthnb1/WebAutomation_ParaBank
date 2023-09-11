@@ -24,5 +24,14 @@ public class LoginPage extends BasePage{
         loginBtn.click();
      }
 
+    public String loginError() {
 
-}
+        WebElement message = driver.findElement(By.id("error-message"));
+        pagewaits.waitForElementToBeVisible(message);
+        String msg = message.getText();
+        return msg;
+
+    }
+
+    }
+
