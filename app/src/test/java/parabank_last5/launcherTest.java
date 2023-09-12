@@ -18,7 +18,7 @@ public class launcherTest {
         launcherPage.navigateTo("https://demo.openmrs.org/openmrs/login.htm");
     }
 
-    @Test(groups = {"sanity"})
+    @Test(groups = {"sanity"}, priority = 1)
     void CaptureVitalTest() throws InterruptedException {
         String username="admin", password="Admin123";
         String patientName="Ananth";
@@ -38,7 +38,7 @@ public class launcherTest {
         Assert.assertEquals(Weight, "70", "Weight didn't match");
     }
 
-    @Test(groups = {"sanity"})
+    @Test(groups = {"sanity"}, priority = 2)
     void manageAccountTest() throws InterruptedException {
         String username="admin", Password="Admin123";
         LoginPage loginPage = new LoginPage(driver);
@@ -48,11 +48,11 @@ public class launcherTest {
         systemAdministrationPage.gotomanageAccountPage();
         systemAdministrationPage.addAccount(familyName,givenName,userName,password, "Administers System");
 //        Thread.sleep(4000);
-        String expectedusername= systemAdministrationPage.getUserName("Johnson");
-        Assert.assertEquals(expectedusername,"johnsoncooper","Username doesn't match");
+        String expectedusername= systemAdministrationPage.getUserName(givenName+" "+familyName);
+        Assert.assertEquals(expectedusername,givenName+" "+familyName,"Username doesn't match");
     }
 
-    @Test
+    @Test(groups = {"sanity"}, priority = 3)
     void loginToAddedUserWithFalseCredentials() throws InterruptedException {
         String username="johnsoncooper", password="Johnson@12c";
         LoginPage loginPage = new LoginPage(driver);
@@ -63,7 +63,7 @@ public class launcherTest {
 
 
 
-    @Test(groups = {"sanity"})
+    @Test(groups = {"sanity"}, priority = 4)
     void startVisitWorkFlowTest() throws InterruptedException {
         String username = "admin", Password = "Admin123";
         String patientName="Hemanth";
@@ -75,7 +75,7 @@ public class launcherTest {
         Assert.assertTrue(active);
     }
 
-    @Test(groups = {"sanity"})
+    @Test(groups = {"sanity"}, priority = 5)
     void EndVisitWorkFlowTest() throws InterruptedException {
         String username = "admin", Password = "Admin123";
         String patientName="Hemanth";
@@ -86,7 +86,7 @@ public class launcherTest {
         Assert.assertTrue(checkout);
 
     }
-    @Test(groups = {"sanity"})
+    @Test(groups = {"sanity"}, priority = 6)
     void changePasswordTest() throws InterruptedException {
         String currentUsername="hemanthnb3",currentPassword="Hemanth@123";
 
@@ -104,7 +104,7 @@ public class launcherTest {
         Assert.assertEquals(username,currentUsername,"Changing password failed");
     }
 
-    @Test
+    @Test(groups = {"sanity"}, priority = 7)
     void loginAfterModifyingPasswordWithFalseCredentials() throws InterruptedException {
         String username="hemanthnb3", password="Hemanth@111";
         LoginPage loginPage = new LoginPage(driver);
@@ -113,7 +113,7 @@ public class launcherTest {
         Assert.assertEquals(message,"Invalid username/password. Please try again.");
     }
 
-    @Test(groups = {"sanity"})
+    @Test(groups = {"sanity"}, priority = 8)
     void editInformationTest() throws InterruptedException {
         String username="admin", password="Admin123";
         String patientName="Ananth";

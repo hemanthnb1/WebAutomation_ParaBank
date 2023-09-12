@@ -54,27 +54,10 @@ public class SystemAdministrationPage extends BasePage {
         searchBar.sendKeys(searchKey);
 
         WebElement table = driver.findElement(By.id("list-accounts")).findElement(By.tagName("tbody"));
-        List<WebElement> rows=table.findElements(By.tagName("tr"));
+        WebElement row=table.findElements(By.tagName("tr")).get(0);
         boolean flag=false;
         String actualUserName=null;
-        for (WebElement row : rows) {
-            List<WebElement>cells=row.findElements(By.tagName("td"));
-            for (WebElement cell : cells) {
-                if(cell.getText().equals(searchKey)){
-//                    driver.findElement(By.xpath("/html/body/div[1]/div[3]/div/table/tbody/tr/td[5]/i")).click();
-//                    System.out.println(cell.getText());
-                    actualUserName=cell.getText();
-//                    cells.get(4).findElement(By.className("icon-pencil edit-action")).click();
-                    flag=true;
-                    break;
-                }
-            }
-            if (flag){
-                break;
-            }
-        }
+        actualUserName=row.findElements(By.tagName("td")).get(0).getText();
         return actualUserName;
-
-
+        }
     }
-}
