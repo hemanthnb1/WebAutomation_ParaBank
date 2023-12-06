@@ -33,7 +33,7 @@ java {
     }
 }
 
-application {
+application  {
     // Define the main class for the application.
     mainClass = 'parabank_last5.App'
 }
